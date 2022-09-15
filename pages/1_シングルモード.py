@@ -151,11 +151,12 @@ def show_result():
 
     #ここから
     doc_ref_theme = db.collection("ranking").document("ネコ").collection("ネコ").stream()
+    score_dict = {}
     for doc in doc_ref_theme:
         doc_dict = doc.to_dict()
-        score = doc_dict["score"]
+        score_dict[f"{doc.id}"] = doc_dict["score"]
         #st.write(f"{doc.id} => {doc.to_dict()}")
-        st.write(f"{score}")
+        st.write(f"{score_dict}")
     
     # add_doc_ref = db.collection("ranking").document(f"{option}").collection(f"{option}").document()
     # add_doc_ref.set({
