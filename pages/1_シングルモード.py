@@ -152,13 +152,15 @@ def show_result():
     #ここから
     doc_ref_theme = db.collection("ranking").document("ネコ").collection("ネコ").stream()
     for doc in doc_ref_theme:
+        doc_dict = doc.to_dict()
+        score = doc_dict["score"]
         #st.write(f"{doc.id} => {doc.to_dict()}")
-        st.write(f"{type(doc)}")
+        st.write(f"{score}")
     
-    add_doc_ref = db.collection("ranking").document(f"{option}").collection(f"{option}").document()
-    add_doc_ref.set({
-        'score': 100
-    })
+    # add_doc_ref = db.collection("ranking").document(f"{option}").collection(f"{option}").document()
+    # add_doc_ref.set({
+    #     'score': 100
+    # })
     #ここまで
     st.header("結果発表")
     df = pd.DataFrame.from_dict(result_list)
