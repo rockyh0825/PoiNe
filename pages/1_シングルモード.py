@@ -13,6 +13,9 @@ from PIL import Image
 from streamlit.components.v1 import html
 from google.cloud import firestore, storage
 
+#後で消す
+import random
+
 cert = {
     "type": st.secrets["type"],
     "project_id": st.secrets["project_id"],
@@ -163,7 +166,7 @@ def show_result():
     if len(score_set) <= 5:
         add_doc_ref = db.collection("ranking").document(f"{option}").collection(f"{option}").document()
         add_doc_ref.set({
-            'score': 100
+            'score': random.randint(1,100)
         })
     else:
         st.write("いっぱいだよ")
