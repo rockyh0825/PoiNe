@@ -148,7 +148,7 @@ def show_result():
         score["player_name"] = player_name
         result_list.append(score)
         st.session_state["result_list"] = result_list
-        st.session_state["last_player_index"] = last_player_index
+        st.session_state["last_player_index2"] = last_player_index
         st.session_state["fig"] = fig
         st.session_state["features_paths"] = features_paths
     result(result_list, last_player_index, fig, features_paths)
@@ -242,4 +242,4 @@ if "finished" not in st.session_state:
 
     record()
 else:
-    result(st.session_state["result_list"], st.session_state["last_player_index"], st.session_state["fig"], st.session_state["features_paths"])
+    result(st.session_state["result_list"], st.session_state["last_player_index2"], st.session_state["fig"], st.session_state["features_paths"])
