@@ -173,7 +173,7 @@ def show_result():
             score_set.add(doc_dict["score"])
         keys = [k for k, v in score_dict.items() if v == min(score_set)]
 
-        score = (3 * dict["chroma_cens"] + 7 * dict["zero_crossing_rate"]) / 10
+        score = int(((3 * dict["chroma_cens"] + 7 * dict["zero_crossing_rate"]) / 10) * 100)
         if len(score_set) < 5:
             add_doc_ref = db.collection("ranking").document(f"{option}").collection(f"{option}").document()
             add_doc_ref.set({
