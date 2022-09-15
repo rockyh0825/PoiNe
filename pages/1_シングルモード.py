@@ -153,6 +153,11 @@ def show_result():
     doc_ref_theme = db.collection("ranking").document("ネコ").collection("ネコ").stream()
     for doc in doc_ref_theme:
         st.write(f"{doc.id} => {doc.to_dict()}")
+    
+    add_doc_ref = db.collection("ranking").document("ネコ").collection("ネコ").document()
+    add_doc_ref.set({
+        'score': 30
+    })
     #ここまで
     st.header("結果発表")
     df = pd.DataFrame.from_dict(result_list)
