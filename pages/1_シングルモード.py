@@ -234,3 +234,5 @@ if "finished" not in st.session_state:
     st.markdown("---")
 
     record()
+else:
+    show_result()
