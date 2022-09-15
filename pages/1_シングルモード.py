@@ -11,6 +11,23 @@ import plotly.graph_objs as go
 import matplotlib.pyplot as plt
 from PIL import Image
 from streamlit.components.v1 import html
+from google.cloud import firestore, storage
+
+cert = {
+    "type": st.secrets["type"],
+    "project_id": st.secrets["project_id"],
+    "private_key_id": st.secrets["private_key_id"],
+    "private_key": st.secrets["private_key"],
+    "client_email": st.secrets["client_email"],
+    "client_id": st.secrets["client_id"],
+    "auth_uri": st.secrets["auth_uri"],
+    "token_uri": st.secrets["token_uri"],
+    "auth_provider_x509_cert_url": st.secrets["auth_provider_x509_cert_url"],
+    "client_x509_cert_url": st.secrets["client_x509_cert_url"]
+}
+
+db = firestore.Client.from_service_account_info(cert)
+client = storage.Client.from_service_account_info(cert)
 
 
 def next():
@@ -141,6 +158,7 @@ def show_result():
     for i in range(last_player_index):
         name = sorted_names[i]
         cols[i].metric(f"{i+1}位：{name}", f"{int(df_sorted.at[name, '合計得点'] * 100)} 点")
+        st.button("test")
     
     st.caption("▼ 音声波形")
     st.plotly_chart(fig, use_container_width=True)
