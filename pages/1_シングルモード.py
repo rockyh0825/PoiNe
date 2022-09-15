@@ -173,6 +173,7 @@ def show_result():
             score_set.add(doc_dict["score"])
         keys = [k for k, v in score_dict.items() if v == min(score_set)]
         st.write(f"{keys[0]}")
+        st.write(f"{len(score_set)}")
 
         score = int(((3 * dict["chroma_cens"] + 7 * dict["zero_crossing_rate"]) / 10) * 100)
         if len(score_set) < 5:
@@ -198,7 +199,7 @@ def show_result():
                 'player_name': dict["player_name"]
             })
             st.write("入れ替え")
-            st.write(f"{len(score_set)}")
+            
         else:
             st.write("点数低い")
 
