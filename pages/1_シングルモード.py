@@ -197,6 +197,7 @@ def show_result():
                 'player_name': dict["player_name"]
             })
             st.write("入れ替え")
+            st.write(f"{len(score_set)}")
         else:
             st.write("点数低い")
 
