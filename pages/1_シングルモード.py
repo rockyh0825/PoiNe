@@ -149,6 +149,11 @@ def show_result():
         score["player_name"] = player_name
         result_list.append(score)
 
+    #ここから
+    doc_ref_theme = db.collection("ranking").document("ネコ").collection("ネコ").stream()
+    for doc in doc_ref_theme:
+        st.write(f"{doc.id} => {doc.to_dict()}")
+    #ここまで
     st.header("結果発表")
     df = pd.DataFrame.from_dict(result_list)
     df['total_score'] = (3 * df["chroma_cens"] + 7 * df["zero_crossing_rate"]) / 10
@@ -184,6 +189,7 @@ def show_result():
         st.button("もう一度プレイする", on_click=reset)
     with col2:
         st.button("ランキングに保存する", on_click=save)
+    
     html(f"""<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-hashtags="ぽいネ" data-url="https://kitsuya0828-inpersonation-app-home-aaa1x7.streamlitapp.com/" data-text="新感覚ものまね自動採点アプリ「ぽいネ！」を{last_player_index}人でプレイしました！" data-lang="ja" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>""")
 
 
