@@ -151,8 +151,8 @@ def show_result():
 
     #ここから
     doc_ref_theme = db.collection("ranking").document("ネコ").collection("ネコ").stream()
-    score_dict = {}
-    score_set = set()
+    score_dict = {} #doc.idと点数を管理するdict
+    score_set = set() #同じ点数を加味
     for doc in doc_ref_theme:
         doc_dict = doc.to_dict()
         score_dict[f"{doc.id}"] = doc_dict["score"]
@@ -160,10 +160,13 @@ def show_result():
         #st.write(f"{doc.id} => {doc.to_dict()}")
     st.write(f"{len(score_set)}")
     
-    # add_doc_ref = db.collection("ranking").document(f"{option}").collection(f"{option}").document()
-    # add_doc_ref.set({
-    #     'score': 100
-    # })
+    if len(score_set) <= 5:
+        add_doc_ref = db.collection("ranking").document(f"{option}").collection(f"{option}").document()
+        add_doc_ref.set({
+            'score': 100
+        })
+    else:
+        st.write("いっぱいだよ")
     #ここまで
 
     st.header("結果発表")
