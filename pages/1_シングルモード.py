@@ -152,7 +152,7 @@ def show_result():
     #ここから
     doc_ref_theme = db.collection("ranking").document("ネコ").collection("ネコ").stream()
     score_dict = {}
-    score_set = {}
+    score_set = set()
     for doc in doc_ref_theme:
         doc_dict = doc.to_dict()
         score_dict[f"{doc.id}"] = doc_dict["score"]
@@ -165,7 +165,7 @@ def show_result():
     #     'score': 100
     # })
     #ここまで
-    
+
     st.header("結果発表")
     df = pd.DataFrame.from_dict(result_list)
     df['total_score'] = (3 * df["chroma_cens"] + 7 * df["zero_crossing_rate"]) / 10
