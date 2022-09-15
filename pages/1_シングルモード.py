@@ -180,12 +180,14 @@ def show_result():
                 'score': score,
                 'player_name': dict["player_name"]
             })
+            st.write("少ない")
         elif score in score_set:
             add_doc_ref = db.collection("ranking").document(f"{option}").collection(f"{option}").document()
             add_doc_ref.set({
                 'score': score,
                 'player_name': dict["player_name"]
             })
+            st.write("同じスコア")
         elif score > min(score_set):
             for key in range(len(keys)):
                 db.collection("ranking").document(f"{option}").collection(f"{option}").document(f"{key}").delete()
@@ -194,6 +196,9 @@ def show_result():
                 'score': score,
                 'player_name': dict["player_name"]
             })
+            st.write("入れ替え")
+        else:
+            st.write("点数低い")
 
     #ここまで
 
