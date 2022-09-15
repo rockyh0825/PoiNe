@@ -144,14 +144,7 @@ def show_result():
                 score[key] = ddtw_eval
         score["player_name"] = player_name
         result_list.append(score)
-        st.session_state["result_list"] = result_list
-        st.session_state["last_player_index2"] = last_player_index
-        st.session_state["fig"] = fig
-        st.session_state["features_paths"] = features_paths
-    result(result_list, last_player_index, fig, features_paths)
-    
 
-def result(result_list, last_player_index, fig, features_paths):
     st.header("結果発表")
     df = pd.DataFrame.from_dict(result_list)
     df['total_score'] = (3 * df["chroma_cens"] + 7 * df["zero_crossing_rate"]) / 10
@@ -238,5 +231,3 @@ if "finished" not in st.session_state:
     st.markdown("---")
 
     record()
-else:
-    result(st.session_state["result_list"], st.session_state["last_player_index2"], st.session_state["fig"], st.session_state["features_paths"])
