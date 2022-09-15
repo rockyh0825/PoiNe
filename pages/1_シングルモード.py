@@ -40,9 +40,6 @@ def reset():
     for key in st.session_state.keys():
         del st.session_state[key]
 
-def save():
-    st.write("test")
-
 
 def record():
     "音声を録音する"
@@ -168,7 +165,7 @@ def result(result_list, last_player_index, fig, features_paths):
     for i in range(last_player_index):
         name = sorted_names[i]
         cols[i].metric(f"{i+1}位：{name}", f"{int(df_sorted.at[name, '合計得点'] * 100)} 点")
-        st.button(f"test_{i+1}", on_click=save)
+        st.button("test")
     
     st.caption("▼ 音声波形")
     st.plotly_chart(fig, use_container_width=True)
