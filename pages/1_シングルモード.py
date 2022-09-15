@@ -172,6 +172,7 @@ def show_result():
             score_dict[f"{doc.id}"] = doc_dict["score"]
             score_set.add(doc_dict["score"])
         keys = [k for k, v in score_dict.items() if v == min(score_set)]
+        st.write(f"{keys[0]}")
 
         score = int(((3 * dict["chroma_cens"] + 7 * dict["zero_crossing_rate"]) / 10) * 100)
         if len(score_set) < 5:
