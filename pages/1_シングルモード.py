@@ -154,23 +154,47 @@ def show_result():
 
     #ここまで
 
+    doc_ref_ranking = db.collection("ranking").document(f"{option}")
+    docs = doc_ref_ranking.get()
+    score_dict = docs.to_dict()
+
+    if score_dict == None:
+        #デフォルトのランキングセット
+        doc_ref_ranking.set({
+            'first': ["太郎", 25],
+            'second': ["次郎", 20],
+            'third': ["三郎", 15],
+            'fourth': ["四郎", 10],
+            'fifth': ["五郎", 5]
+        })
+
     for dict in result_list:
         doc_ref_ranking = db.collection("ranking").document(f"{option}")
         docs = doc_ref_ranking.get()
         score_dict = docs.to_dict()
-
-        st.write(score_dict)
-
-        if score_dict == None:
-            #デフォルトのランキングセット
-            doc_ref_ranking.set({
-                'first': ["太郎", 25],
-                'second': ["次郎", 20],
-                'third': ["三郎", 15],
-                'fourth': ["四郎", 10],
-                'fifth': ["五郎", 5]
-            })
+        
         score = int(((3 * dict["chroma_cens"] + 7 * dict["zero_crossing_rate"]) / 10) * 100)
+
+        if score_dict['first'][1] <= score:
+            score_dict['fifth'] = score_dict['fourth']
+            score_dict['fourth'] = score_dict['third']
+            score_dict['third'] = score_dict['second']
+            score_dict['second'] = score_dict['first']
+            score_dict['first'] = [dict["player_name"], score]
+        elif score_dict['second'][1] <= score:
+            score_dict['fifth'] = score_dict['fourth']
+            score_dict['fourth'] = score_dict['third']
+            score_dict['third'] = score_dict['second']
+            score_dict['second'] = [dict["player_name"], score]
+        elif score_dict['third'][1] <= score:
+            score_dict['fifth'] = score_dict['fourth']
+            score_dict['fourth'] = score_dict['third']
+            score_dict['third'] = [dict["player_name"], score]
+        elif score_dict['fourth'][1] <= score:
+            score_dict['fifth'] = score_dict['fourth']
+            score_dict['fourth'] = [dict["player_name"], score]
+        elif score_dict['fifth'][1] <= score:
+            score_dict['fifth'] = [dict["player_name"], score]
 
     #ここまで
 
