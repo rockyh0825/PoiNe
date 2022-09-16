@@ -195,6 +195,7 @@ def show_result():
             score_dict['fourth'] = [dict["player_name"], score]
         elif score_dict['fifth'][1] <= score:
             score_dict['fifth'] = [dict["player_name"], score]
+        doc_ref_ranking.set(score_dict)
 
     #ここまで
 
