@@ -1,4 +1,3 @@
-from types import NoneType
 import streamlit as st
 from audiorecorder import audiorecorder
 from utils import fast_ddtw
