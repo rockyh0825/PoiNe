@@ -152,56 +152,23 @@ def show_result():
         score["player_name"] = player_name
         result_list.append(score)
 
-    #ここから
-    # doc_ref_theme = db.collection("ranking").document(f"{option}").collection(f"{option}").stream()
-    # score_dict = {} #doc.idと点数を管理するdict
-    # score_set = set() #同じ点数を加味するための集合
-    # for doc in doc_ref_theme:
-    #     doc_dict = doc.to_dict()
-    #     score_dict[f"{doc.id}"] = doc_dict["score"]
-    #     score_set.add(doc_dict["score"])
-    #     #st.write(f"{doc.id} => {doc.to_dict()}")
-    # st.write(f"{min(score_set)}")
+    #ここまで
 
     for dict in result_list:
-        doc_ref_theme = db.collection("ranking").document(f"{option}").collection(f"{option}").stream()
-        score_set = set()
-        score_dict = {}
-        for doc in doc_ref_theme:
-            doc_dict = doc.to_dict()
-            score_dict[f"{doc.id}"] = doc_dict["score"]
-            score_set.add(doc_dict["score"])
-        keys = [k for k, v in score_dict.items() if v == min(score_set)]
-        st.write(f"{keys[0]}")
-        st.write(f"{len(score_set)}")
+        doc_ref_ranking = db.collection("ranking").document(f"{option}")
+        docs = doc_ref_ranking.get()
+        score_dict = docs.to_dict()
 
+        if len(score_dict) == 0:
+            #デフォルトのランキングセット
+            doc_ref_ranking.set({
+                'first': ["太郎", 25],
+                'second': ["次郎", 20],
+                'third': ["三郎", 15],
+                'fourth': ["四郎", 10],
+                'fifth': ["五郎", 5]
+            })
         score = int(((3 * dict["chroma_cens"] + 7 * dict["zero_crossing_rate"]) / 10) * 100)
-        if len(score_set) < 5:
-            add_doc_ref = db.collection("ranking").document(f"{option}").collection(f"{option}").document()
-            add_doc_ref.set({
-                'score': score,
-                'player_name': dict["player_name"]
-            })
-            st.write("少ない")
-        elif score in score_set:
-            add_doc_ref = db.collection("ranking").document(f"{option}").collection(f"{option}").document()
-            add_doc_ref.set({
-                'score': score,
-                'player_name': dict["player_name"]
-            })
-            st.write("同じスコア")
-        elif score > min(score_set):
-            for key in range(len(keys)):
-                db.collection("ranking").document(f"{option}").collection(f"{option}").document(f"{key}").delete()
-            add_doc_ref = db.collection("ranking").document(f"{option}").collection(f"{option}").document()
-            add_doc_ref.set({
-                'score': score,
-                'player_name': dict["player_name"]
-            })
-            st.write("入れ替え")
-            
-        else:
-            st.write("点数低い")
 
     #ここまで
 
