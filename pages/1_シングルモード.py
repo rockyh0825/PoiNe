@@ -1,3 +1,4 @@
+from types import NoneType
 import streamlit as st
 from audiorecorder import audiorecorder
 from utils import fast_ddtw
@@ -159,7 +160,7 @@ def show_result():
         docs = doc_ref_ranking.get()
         score_dict = docs.to_dict()
 
-        if len(score_dict) == 0:
+        if type(score_dict) == NoneType:
             #デフォルトのランキングセット
             doc_ref_ranking.set({
                 'first': ["太郎", 25],
