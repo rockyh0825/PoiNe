@@ -1,3 +1,4 @@
+from types import NoneType
 import streamlit as st
 from audiorecorder import audiorecorder
 from utils import fast_ddtw
@@ -161,16 +162,16 @@ def show_result():
 
         st.write(type(score_dict))
 
-        # if type(score_dict) == None:
-        #     #デフォルトのランキングセット
-        #     doc_ref_ranking.set({
-        #         'first': ["太郎", 25],
-        #         'second': ["次郎", 20],
-        #         'third': ["三郎", 15],
-        #         'fourth': ["四郎", 10],
-        #         'fifth': ["五郎", 5]
-        #     })
-        # score = int(((3 * dict["chroma_cens"] + 7 * dict["zero_crossing_rate"]) / 10) * 100)
+        if type(score_dict) == NoneType:
+            #デフォルトのランキングセット
+            doc_ref_ranking.set({
+                'first': ["太郎", 25],
+                'second': ["次郎", 20],
+                'third': ["三郎", 15],
+                'fourth': ["四郎", 10],
+                'fifth': ["五郎", 5]
+            })
+        score = int(((3 * dict["chroma_cens"] + 7 * dict["zero_crossing_rate"]) / 10) * 100)
 
     #ここまで
 
