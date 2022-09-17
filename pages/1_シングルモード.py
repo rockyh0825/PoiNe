@@ -74,7 +74,7 @@ def record():
             st.session_state["last_player_index"] = player_index
         else:
             st.session_state["last_player_index"] = player_index-1
-        if st.session_state["player_index"] > 1:
+        if "name_1" in st.session_state:
             st.button("結果を見る", on_click=show_result)
 
 
