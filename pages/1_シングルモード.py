@@ -158,11 +158,11 @@ def show_result():
     if score_dict == None:
         #デフォルトのランキングセット
         doc_ref_ranking.set({
-            '1位': ["太郎", 25],
-            '2位': ["次郎", 20],
-            '3位': ["三郎", 15],
-            '4位': ["四郎", 10],
-            '5位': ["五郎", 5]
+            '1位': ["太郎", 5],
+            '2位': ["次郎", 4],
+            '3位': ["三郎", 3],
+            '4位': ["四郎", 2],
+            '5位': ["五郎", 1]
         })
 
     for dict in result_list:
@@ -203,7 +203,7 @@ def show_result():
     if rankin_flag:
         st.subheader('ランクインしました！！')
     df = pd.DataFrame.from_dict(result_list)
-    df['total_score'] = (5 * df["chroma_cens"] + 5 * df["zero_crossing_rate"]) / 10
+    df['total_score'] = 2 * ((5 * df["chroma_cens"] + 5 * df["zero_crossing_rate"]) / 10)
     df.columns = ["CENS", "ZCR", "プレイヤー名", "合計得点"]
     df_indexed = df.set_index("プレイヤー名")
 
@@ -213,7 +213,7 @@ def show_result():
     sorted_names = df_sorted.index
     for i in range(last_player_index):
         name = sorted_names[i]
-        cols[i].metric(f"{i+1}位：{name}", f"{int(2 * (df_sorted.at[name, '合計得点'] * 100))} 点")
+        cols[i].metric(f"{i+1}位：{name}", f"{int(df_sorted.at[name, '合計得点'] * 100)} 点")
     
     st.caption("▼ 音声波形")
     st.plotly_chart(fig, use_container_width=True)

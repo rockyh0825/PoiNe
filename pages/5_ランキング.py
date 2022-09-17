@@ -35,11 +35,11 @@ score_dict = docs.to_dict()
 if score_dict == None:
         #デフォルトのランキングセット
         doc_ref_ranking.set({
-            '1位': ["太郎", 25],
-            '2位': ["次郎", 20],
-            '3位': ["三郎", 15],
-            '4位': ["四郎", 10],
-            '5位': ["五郎", 5]
+            '1位': ["太郎", 5],
+            '2位': ["次郎", 4],
+            '3位': ["三郎", 3],
+            '4位': ["四郎", 2],
+            '5位': ["五郎", 1]
         })
 
 doc_ref_ranking = db.collection("ranking").document(f"{option}")
