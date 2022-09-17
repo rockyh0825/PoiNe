@@ -309,7 +309,7 @@ def show_result():
 
     st.header("結果発表")
     df = pd.DataFrame.from_dict(result_list)
-    df['total_score'] = (3 * df["chroma_cens"] + 7 * df["zero_crossing_rate"]) / 10
+    df['total_score'] = (5 * df["chroma_cens"] + 5 * df["zero_crossing_rate"]) / 10
     df.columns = ["CENS", "ZCR", "プレイヤー名", "合計得点"]
     df_indexed = df.set_index("プレイヤー名")
 
@@ -320,7 +320,7 @@ def show_result():
     my_standing = "?"
     for i in range(len(sorted_names)):
         name = sorted_names[i]
-        cols[i].metric(f"{i+1}位：{name}", f"{int(df_sorted.at[name, '合計得点'] * 100)} 点")
+        cols[i].metric(f"{i+1}位：{name}", f"{int(2 * (df_sorted.at[name, '合計得点'] * 100))} 点")
         if name == st.session_state["user_name"]:
             my_standing = i + 1
             

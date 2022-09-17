@@ -170,7 +170,7 @@ def show_result():
         docs = doc_ref_ranking.get()
         score_dict = docs.to_dict()
         
-        score = int(((3 * dict["chroma_cens"] + 7 * dict["zero_crossing_rate"]) / 10) * 100)
+        score = int(2 * (((5 * dict["chroma_cens"] + 5 * dict["zero_crossing_rate"]) / 10) * 100))
 
         if score_dict['1位'][1] <= score:
             score_dict['5位'] = score_dict['4位']
@@ -203,7 +203,7 @@ def show_result():
     if rankin_flag:
         st.subheader('ランクインしました！！')
     df = pd.DataFrame.from_dict(result_list)
-    df['total_score'] = (3 * df["chroma_cens"] + 7 * df["zero_crossing_rate"]) / 10
+    df['total_score'] = (5 * df["chroma_cens"] + 5 * df["zero_crossing_rate"]) / 10
     df.columns = ["CENS", "ZCR", "プレイヤー名", "合計得点"]
     df_indexed = df.set_index("プレイヤー名")
 
@@ -213,7 +213,7 @@ def show_result():
     sorted_names = df_sorted.index
     for i in range(last_player_index):
         name = sorted_names[i]
-        cols[i].metric(f"{i+1}位：{name}", f"{int(df_sorted.at[name, '合計得点'] * 100)} 点")
+        cols[i].metric(f"{i+1}位：{name}", f"{int(2 * (df_sorted.at[name, '合計得点'] * 100))} 点")
     
     st.caption("▼ 音声波形")
     st.plotly_chart(fig, use_container_width=True)
