@@ -11,10 +11,7 @@ import plotly.graph_objs as go
 import matplotlib.pyplot as plt
 from PIL import Image
 from streamlit.components.v1 import html
-from google.cloud import firestore, storage
-
-#後で消す
-import random
+from google.cloud import firestore
 
 cert = {
     "type": st.secrets["type"],
@@ -30,8 +27,6 @@ cert = {
 }
 
 db = firestore.Client.from_service_account_info(cert)
-client = storage.Client.from_service_account_info(cert)
-
 
 def next():
     "プレイヤー番号を更新する"
