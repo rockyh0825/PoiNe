@@ -156,11 +156,11 @@ def show_result():
     if score_dict == None:
         #デフォルトのランキングセット
         doc_ref_ranking.set({
-            'first': ["太郎", 25],
-            'second': ["次郎", 20],
-            'third': ["三郎", 15],
-            'fourth': ["四郎", 10],
-            'fifth': ["五郎", 5]
+            '1位': ["太郎", 25],
+            '2位': ["次郎", 20],
+            '3位': ["三郎", 15],
+            '4位': ["四郎", 10],
+            '5位': ["五郎", 5]
         })
 
     for dict in result_list:
@@ -170,26 +170,26 @@ def show_result():
         
         score = int(((3 * dict["chroma_cens"] + 7 * dict["zero_crossing_rate"]) / 10) * 100)
 
-        if score_dict['first'][1] <= score:
-            score_dict['fifth'] = score_dict['fourth']
-            score_dict['fourth'] = score_dict['third']
-            score_dict['third'] = score_dict['second']
-            score_dict['second'] = score_dict['first']
-            score_dict['first'] = [dict["player_name"], score]
-        elif score_dict['second'][1] <= score:
-            score_dict['fifth'] = score_dict['fourth']
-            score_dict['fourth'] = score_dict['third']
-            score_dict['third'] = score_dict['second']
-            score_dict['second'] = [dict["player_name"], score]
-        elif score_dict['third'][1] <= score:
-            score_dict['fifth'] = score_dict['fourth']
-            score_dict['fourth'] = score_dict['third']
-            score_dict['third'] = [dict["player_name"], score]
-        elif score_dict['fourth'][1] <= score:
-            score_dict['fifth'] = score_dict['fourth']
-            score_dict['fourth'] = [dict["player_name"], score]
-        elif score_dict['fifth'][1] <= score:
-            score_dict['fifth'] = [dict["player_name"], score]
+        if score_dict['1位'][1] <= score:
+            score_dict['5位'] = score_dict['4位']
+            score_dict['4位'] = score_dict['3位']
+            score_dict['3位'] = score_dict['2位']
+            score_dict['2位'] = score_dict['1位']
+            score_dict['1位'] = [dict["player_name"], score]
+        elif score_dict['2位'][1] <= score:
+            score_dict['5位'] = score_dict['4位']
+            score_dict['4位'] = score_dict['3位']
+            score_dict['3位'] = score_dict['2位']
+            score_dict['2位'] = [dict["player_name"], score]
+        elif score_dict['3位'][1] <= score:
+            score_dict['5位'] = score_dict['4位']
+            score_dict['4位'] = score_dict['3位']
+            score_dict['3位'] = [dict["player_name"], score]
+        elif score_dict['4位'][1] <= score:
+            score_dict['5位'] = score_dict['4位']
+            score_dict['4位'] = [dict["player_name"], score]
+        elif score_dict['5位'][1] <= score:
+            score_dict['5位'] = [dict["player_name"], score]
         doc_ref_ranking.set(score_dict)
 
     #ここまで
