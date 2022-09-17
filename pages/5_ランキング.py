@@ -45,7 +45,7 @@ doc_ref_ranking = db.collection("ranking").document(f"{option}")
 docs = doc_ref_ranking.get()
 score_dict = docs.to_dict()
 
-df = pd.DataFrame.from_dict(score_dict)
+df = pd.DataFrame.from_dict(score_dict, orient="index")
 df.columns = ["プレイヤー名", "得点"]
 
 df_sorted = df.sort_values(by="得点",ascending=False)
