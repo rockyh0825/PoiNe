@@ -74,7 +74,8 @@ def record():
             st.session_state["last_player_index"] = player_index
         else:
             st.session_state["last_player_index"] = player_index-1
-        st.button("結果を見る", on_click=show_result)
+        if st.session_state["player_index"] > 1:
+            st.button("結果を見る", on_click=show_result)
 
 
 def extract_features(y, sr):
