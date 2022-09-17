@@ -152,6 +152,7 @@ def show_result():
     doc_ref_ranking = db.collection("ranking").document(f"{option}")
     docs = doc_ref_ranking.get()
     score_dict = docs.to_dict()
+    rankin_flag = True
 
     if score_dict == None:
         #デフォルトのランキングセット
@@ -190,11 +191,16 @@ def show_result():
             score_dict['4位'] = [dict["player_name"], score]
         elif score_dict['5位'][1] <= score:
             score_dict['5位'] = [dict["player_name"], score]
+        else:
+            rankin_flag = False
         doc_ref_ranking.set(score_dict)
 
     #ここまで
 
     st.header("結果発表")
+
+    if rankin_flag:
+        st.subheader('ランクインしました！！')
     df = pd.DataFrame.from_dict(result_list)
     df['total_score'] = (3 * df["chroma_cens"] + 7 * df["zero_crossing_rate"]) / 10
     df.columns = ["CENS", "ZCR", "プレイヤー名", "合計得点"]
@@ -222,12 +228,7 @@ def show_result():
     
     st.markdown("---")
     
-
-    col1, col2 = st.columns([1, 1])
-    with col1:
-        st.button("もう一度プレイする", on_click=reset)
-    with col2:
-        st.button("ランキングに保存する", on_click=save)
+    st.button("もう一度プレイする", on_click=reset)
     
     html(f"""<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-hashtags="ぽいネ" data-url="https://kitsuya0828-inpersonation-app-home-aaa1x7.streamlitapp.com/" data-text="新感覚ものまね自動採点アプリ「ぽいネ！」を{last_player_index}人でプレイしました！" data-lang="ja" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>""")
 
