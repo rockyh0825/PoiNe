@@ -5,7 +5,7 @@ This is an application that automatically scores your mimics.
 
 # DEMO
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://kitsuya0828-inpersonation-app-home-aaa1x7.streamlitapp.com/)
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://totopiro-poine-home-husg1d.streamlitapp.com/)
 
 <img src="static/description/overview.png" alt="overview">
 
