@@ -27,7 +27,7 @@ with open("static/theme/name_to_path.json", encoding="utf-8") as f:
     name_to_path = json.load(f)
 option = st.sidebar.selectbox('▼ ランキングを確認したいお題を選んでください', name_to_path.keys())
 
-st.header(f"👑ものまねランキング{option}編👑")
+st.header(f"👑ものまねランキング👑 {option}編")
 doc_ref_ranking = db.collection("ranking").document(f"{option}")
 docs = doc_ref_ranking.get()
 score_dict = docs.to_dict()
